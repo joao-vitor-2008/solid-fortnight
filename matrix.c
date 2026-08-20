@@ -10,7 +10,6 @@ int* create_random_matrix(int m, int n) {
 			mtrz[(i * n) + j] = (rand() % 200) - 99;
 		}
 	}
-
 	return mtrz;
 }
 
