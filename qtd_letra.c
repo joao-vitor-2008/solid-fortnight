@@ -1,10 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 char to_lowercase(char c){
         if(c >= 'A' && c <= 'Z'){
                 return c+32;
+        } else {
+                return c;
+        }
+}
+
+char to_uppercase(char c){
+	if(c >= 'a' && c <= 'z'){
+                return c-32;
         } else {
                 return c;
         }
@@ -37,13 +44,13 @@ int qtd_letra(char* frase, char letra){
 }
 
 int main(){
-        int k = 0;
-        char frase[] = "jJoOo939+++--=vsnskdhdbnakjshshdjdjbshwsjhdhdjeiendbdhjdjsbehsjs**JJJ";        
+        int letter_counter = 0;
+        char frase[] = "jJoOaAãÃoO"; 
         for (int i=0; frase[i] != '\0'; i++){
                 char l = frase[i];
                 if( is_letter(l) && (!ocorre(frase, l, i) && !ocorre(frase, to_lowercase(l), i)) ){
                         printf("%c -- %d\n", l, qtd_letra(frase, l));
-                        k += qtd_letra(frase, l);
+                        letter_counter += qtd_letra(frase, l);
                 }
         }
         printf("Tota de letras é: %d", k);
