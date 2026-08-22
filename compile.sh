@@ -5,5 +5,5 @@ selected_file=$(ls *.c 2>/dev/null | fzf --prompt="Escolha o arquivo .c: " --hei
 
 if [ -n "$selected_file" ]; then
     output="${selected_file%.c}"
-    gcc "$selected_file" -o "$output" -Wall -Wextra && ./"$output"
+    gcc "$selected_file" -o "$output.out" -Wall -Wextra && ./"$output.out"
 fi
