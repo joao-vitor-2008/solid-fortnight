@@ -1,12 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-struct char_counter {
-	char c[2];
+typedef struct {
+	char c[4];
 	int counter;
-	long teste;
-};
+} char_counter;
 
 char to_uppercase(char c){
 	if(c >= 'a' && c <= 'z')return c-32;
@@ -33,19 +33,24 @@ int qtd_letra(char* str, char character){
         return 0 + qtd_letra(&str[1], character);
 }
 
-int* func(char* especials_chars, char* sentence){
+char_counter* func(char* especials_chars, char* sentence){
+    char_counter* str = malloc( (52 + strlen(especials_chars)/2) * sizeof(char_counter) );
+    
+    for(int i = 0; sentence[i] != '\0'; i++){
+        if(is_letter(sentence[i], especials_chars)){
+            
+        }
+    }
 
+    return str;
 }
 
 int main(){
-        int letter_counter = 0;
-        char frase[] = "jJoOaAãÃoO";
+    int letter_counter = 0;
+    char sentence[] = "jJoOaAãÃ";
 	char especials[] = "áéíóúâêôàãõçüÁÉÍÓÚÂÊÔÀÃÕÇÜ";
-	int *res = malloc(sizeof(struct char_counter) * (52 + sizeof(especials)-1));
-	
-	char c[];
-	printf("%d", sizeof(c));	
 
+    char_counter* ptr = func(especials, sentence);
 
-	printf("Total de letras é: %d", letter_counter);
+	printf("Total de letras é: %zu", sizeof(ptr));
 }
