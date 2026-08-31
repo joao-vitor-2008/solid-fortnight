@@ -4,47 +4,49 @@
 #include <stdbool.h>
 
 typedef struct {
-	char c[5];
-	int counter;
+    unsigned char c[5];
+    int counter;
 } char_counter;
 
 char to_uppercase(char c){
-	if(c >= 'a' && c <= 'z')return c-32;
-	else return c;
+    if(c >= 'a' && c <= 'z') return c - 32;
+    return c;
 }
 
-bool occurs(char* str, char* element){
-	if(str[0] == '\0' || *element == 0) return false;
-	else if(str[0] == *element) {
-		return true;
-	} else {
-		return occurs(&str[1], element);
-	}
+bool occurs(char* str, char element){
+    if(str[0] == '\0') return false;
+    if(str[0] == element) return true;
+    return occurs(&str[1], element);
 }
 
-bool is_letter(char *c){
-    if (('A' <= *c && *c <= 'Z') || ('a' <= *c && *c <= 'z')) return true;
-}
-
-bool is_especial(char* c, char* str){
-    return occurs(str, c);
+bool is_letter(char c){
+    return (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z'));
 }
 
 int qtd_letra(char* str, char character){
-        if(str[0] == '\0') return 0;
-        if(to_uppercase(character) == to_uppercase(str[0])) return 1 + qtd_letra(&str[1], character);
-        return 0 + qtd_letra(&str[1], character);
+    if(str[0] == '\0') return 0;
+    int soma = (to_uppercase(character) == to_uppercase(str[0])) ? 1 : 0;
+    return soma + qtd_letra(&str[1], character);
 }
 
 char_counter* func(char* especials_chars, char* sentence){
-    char buffer[80];
+    char buffer[80] = "";
     int k = 0;
-    char_counter* str = calloc( 52 + strlen(especials_chars)/2, sizeof(char_counter) );
+    int pos_buffer = 0;
+    
+    char_counter* str = calloc(52 + strlen(especials_chars), sizeof(char_counter));
     
     for(int i = 0; sentence[i] != '\0'; i++){
-        if(is_letter(&sentence[i]) && !occurs(buffer, &sentence[i]) && !is_especial(&sentence[i], especials_chars) ){
-            str[k].c = sentence[i];
-            str[k].counter = qtd_letra(sentence, sentence[i]);
+        char atual = sentence[i];
+        
+        if(is_letter(atual) && !occurs(buffer, atual)){
+            
+            str[k].c[0] = atual;
+            str[k].c[1] = '\0';
+            str[k].counter = qtd_letra(sentence, atual);
+
+            buffer[pos_buffer++] = atual;
+            buffer[pos_buffer] = '\0';
 
             k++;
         }
@@ -54,11 +56,18 @@ char_counter* func(char* especials_chars, char* sentence){
 }
 
 int main(){
-    int letter_counter = 0;
-    char sentence[] = "jJoOaAãÃ";
-	char especials[] = "áéíóúâêôàãõçüÁÉÍÓÚÂÊÔÀÃÕÇÜ";
+    char sentence[] = "João";
+    char especials[] = "áéíóúâêôàãõçüÁÉÍÓÚÂÊÔÀÃÕÇÜ";
 
     char_counter* ptr = func(especials, sentence);
 
-	printf("Total de letras é: %d", letter_counter);
+    for(int i = 0; ptr[i].c[0] != '\0'; i++){
+        printf("Letra: %s | Quantidade: %d\n", ptr[i].c, ptr[i].counter);
+    }
+    
+    char c = 'a';
+    printf("%d", c);
+
+    free(ptr);
+    return 0;
 }
