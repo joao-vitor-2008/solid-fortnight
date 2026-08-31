@@ -34,6 +34,11 @@ char_counter* func(char* especials_chars, char* sentence){
     int k = 0;
     int pos_buffer = 0;
     
+    //TODO:preciso criar uma função que retorna o numero de bytes de um caractere
+    // depois iterar em cim disso pra colocar no vetor c da struct
+    // da pra usar uma mascara hexadecimal pra obter apenas os 3 ou 4 primeiros bits
+    // e verificar se esta em um intervalo fechado
+
     char_counter* str = calloc(52 + strlen(especials_chars), sizeof(char_counter));
     
     for(int i = 0; sentence[i] != '\0'; i++){
