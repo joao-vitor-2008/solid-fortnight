@@ -5,9 +5,13 @@
 // numeros
 int index_numeros = 0;
 int n = -1;
+int i_impares;
+int i_pares;
+int contador;
 
 // vetores
-int numeros[200];
+int pares[200];
+int impares[200];
 
 // funções extras
 bool mult(int n, int m) {
@@ -20,7 +24,7 @@ void insert(int index, int n, int* arr) {
 
 bool eh_primo(int n) {
     int res = 0;
-    for(int i = 0; i < (n/2); i++) {
+    for(int i = 1; i < (n/2); i++) {
         if(n % i == 0) res++;
     }
     return res == 1;
@@ -29,25 +33,25 @@ bool eh_primo(int n) {
 
 int main() {
     printf("Digite um numero inteiro\n");
-    while(n != 0 && qtd_n < 200) {
+    while(n != 0 && contador < 200) {
         scanf("%d", &n);
-        insert(index_numeros, n, numeros);
-        qtd_n++;
+        if( mult(n,2) && mult(n,7) ){
+            insert(i_pares, n, pares);
+            i_pares++;
+        }
+        if( !mult(n,2) && eh_primo(n) ){
+            insert(i_impares, n, impares);
+            i_impares++;
+        }
+
+        contador++;
     }
+
+    printf("Pares Multiplos de 7\n");
+    for(int i=0; i <= i_pares; i++) printf("%d, ", pares[i]);
     
-    for(int i=0, i <= index_numeros, i++){
-        if()
-    }
-    }
-    
-    printf("Pares multiplos de 7\n");
-    for(int j = 0; j <= i_par; j++){
-        if(mult(pares[j], 7)) printf("%d, ", pares[j]);
-    }
     printf("\nImpares primos\n");
-    for(int j = 0; j <= i_impar; j++){
-        if(eh_primo(impares[j])) printf("%d", impares[j]);
-    }
-    
+    for(int i=0; i <= i_impares; i++) printf("%d, ", impares[i]);
+
     return 0;
 }
